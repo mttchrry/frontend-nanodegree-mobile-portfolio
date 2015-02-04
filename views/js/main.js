@@ -420,40 +420,30 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
+  var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineDx (elem, size) {
-    var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldsize = oldwidth / windowwidth;
-
-    // TODO: change to 3 sizes? no more xl?
-    // Changes the slider value to a percent width
-    function sizeSwitcher (size) {
-      switch(size) {
-        case "1":
-          return 0.25;
-        case "2":
-          return 0.3333;
-        case "3":
-          return 0.5;
-        default:
-          console.log("bug in sizeSwitcher");
+  function determineWidth ( size) {
+    switch(size) {
+      case "1":
+        return 25.0;
+      case "2":
+        return 33.33;
+      case "3":
+        return 50.0;
+      default:
+        console.log("bug in sizeSwitcher");
+        return 0;
       }
-    }
-
-    var newsize = sizeSwitcher(size);
-    var dx = (newsize - oldsize) * windowwidth;
-
-    return dx;
   }
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    var widthPercent = determineWidth(size) + "%";
+    var pizzaContainer = document.querySelectorAll(".randomPizzaContainer");
+    // Much faster to iterate over queryselector return object than to use JQuery, who knew?
+    for (var i = 0; i < pizzaContainer.length; i++) {
+      pizzaContainer[i].style.width = widthPercent;
     }
   }
 
@@ -501,10 +491,10 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
+  var cachedScrollPos = document.body.scrollTop / 1250;
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin(cachedScrollPos + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
