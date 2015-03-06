@@ -15,6 +15,9 @@ To get started, check out the repository, inspect the code,
 
 ####Part 1: Optimize PageSpeed Insights score for index.html
 
+To Optimize this, I used the async keyword on the scripts for the analytical javascript, and used the media="print" flag on the print.css file while inlining the 
+rest of the css so that we only needed one round trip to the server before building the render tree.  I also created a smaller version of pizzeria.jpg.
+
 Some useful tips to help you get started:
 
 1. Check out the repository
@@ -38,6 +41,10 @@ Some useful tips to help you get started:
 Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 ####Part 2: Optimize Frames per Second in pizza.html
+
+To Optimize this I cached some objects that didn't change from the document.get methods outside of the for loop, as that was a large bottleneck.  I also simplified the logic that calculated the 
+pizza size widths to make it easier to read and run faster. I tried to use JQuery to change the width of all of the randomPizzaContainer objects at once, but found that using a for loop over the
+returned object from document.getter was quicker. The more you know!
 
 To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
 
