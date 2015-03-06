@@ -1,5 +1,12 @@
 ## Website Performance Optimization portfolio project
 
+To complete this project I separated out and asychronized the resource I could on index.html.  I also compressed the images into a smaller format to speed that up. 
+
+To improve the pizza performance, I cached static values instead of calculating each one inside the for each loops multiple times and restructured as much calculation out of the loop as possible.  And I resize the pizzas through larger query selectors instead of going through each one. 
+
+The page is available at https://rawgit.com/mttchrry/frontend-nanodegree-mobile-portfolio/master/index.html
+
+
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
